@@ -6,4 +6,7 @@ export const Assets = {
     profile: require('../images/profile.png'),
     profileicon: require('../images/profileicon.png'),
     rightarrow:require('../images/rightarrow.png'),
+    happy:require('../images/happy.png'),
+    boy:require('../images/boy.png'),
+    girl:require('../images/girl.png')
 }

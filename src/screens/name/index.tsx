@@ -19,7 +19,7 @@ export const NameScreen = ({ navigation }: { navigation: any }) => {
           </View>
         </KeyboardAwareScrollView>
         <View style={{ flex: 1,justifyContent: 'flex-end' }}>
-          <TouchableOpacity onPress={() => { navigation.navigate('namescreen') }} style={Style.getstartbtn}>
+          <TouchableOpacity onPress={() => { navigation.navigate('getstart2') }} style={Style.getstartbtn}>
             <Text style={Style.getstarttxt}>{Strings.continue}</Text>
           </TouchableOpacity>
           <TouchableOpacity

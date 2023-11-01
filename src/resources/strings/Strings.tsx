@@ -5,5 +5,6 @@ export const Strings = {
     whatsname:'What is your name ?',
     yourname:'Your Name',
     continue:'Continue',
-    skipnow:'Skip for now'
+    skipnow:'Skip for now',
+    identity:'Which is your current gender identity?'
 }
