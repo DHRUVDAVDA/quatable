@@ -4,6 +4,7 @@ import { Assets } from "../../resources/images/Imagepath";
 import { window_height, window_width } from "../../resources/dimensions/dimensions";
 import { Colors } from "../../resources/colors/Colors";
 
+//This is splash screen which open for the few seconds 
 export const SplashScreen = ({ navigation }: { navigation: any }) => {
 
     useEffect(() => {
