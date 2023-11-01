@@ -6,6 +6,11 @@ import { Colors } from '../../resources/colors/Colors';
 import { Strings } from '../../resources/strings/Strings';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+
+
+
+
+
 export const NameScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={Style.container}>
