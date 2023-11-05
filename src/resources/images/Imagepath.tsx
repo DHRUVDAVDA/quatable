@@ -8,5 +8,11 @@ export const Assets = {
     rightarrow:require('../images/rightarrow.png'),
     happy:require('../images/happy.png'),
     boy:require('../images/boy.png'),
-    girl:require('../images/girl.png')
+    girl:require('../images/girl.png'),
+    boy_girl: require('../images/boy_girl.png'),
+    watch: require('../images/watch.png'),
+    circlearrow:require('../images/circlearrow.png'),
+    widgets:require('../images/widgets.png'),
+    boywithdog:require('../images/boywithdog.png'),
+    feeling2:require('../images/feeling2.png'),
 }

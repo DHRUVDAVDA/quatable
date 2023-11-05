@@ -6,6 +6,10 @@ import { GetStarted } from '../../screens/getstarted';
 import { NameScreen } from '../../screens/name';
 import { GetStarted2 } from '../../screens/getstarted2';
 import { Gender } from '../../screens/gender';
+import { Reminder } from '../../screens/reminder';
+import { Widgets } from '../../screens/widgets';
+import { Feeling } from '../../screens/feeling';
+import { Feeling2 } from '../../screens/feeling2';
 
 export const Stack = () => {
     const Stack = createNativeStackNavigator();
@@ -35,6 +39,26 @@ export const Stack = () => {
                  <Stack.Screen
                     component={Gender}
                     name="gender"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                 <Stack.Screen
+                    component={Reminder}
+                    name="reminder"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                <Stack.Screen
+                    component={Widgets}
+                    name="widgets"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                <Stack.Screen
+                    component={Feeling}
+                    name="feeling"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                 <Stack.Screen
+                    component={Feeling2}
+                    name="feeling2"
                     options={{ headerShown: false,animation:'slide_from_right' }}
                 />
             </Stack.Navigator>
