@@ -18,5 +18,7 @@ export const Strings = {
     feeling1:'How are you feeling lately?',
     feeling2:'Select the mood that best reflects how \n you feel at this moment.',
     feeling21:'What is making you feel \n that way?',
-    feeling22:'You can select more than one option'
+    feeling22:'You can select more than one option',
+    themetxt1:'Configure your default \n theme',
+    lifearea1:'What areas of your life \n would you like to improve?'
 }

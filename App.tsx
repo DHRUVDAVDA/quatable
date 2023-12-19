@@ -5,7 +5,6 @@ import { Stack } from './src/navigations/stack/Stack';
 
 const App = () => {
   return (
-
     <Stack />
 
   );

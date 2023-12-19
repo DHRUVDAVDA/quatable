@@ -14,59 +14,38 @@ import {
   window_width,
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
-import { FEELINGS2 } from "./Feeling2";
+import { ThemeImages } from "./Theme";
 
-export const Feeling2 = ({ navigation }: { navigation: any }) => {
-  const [selectedFeeling, setSelectedFeeling] = useState<string>(
-    FEELINGS2[0].item
-  );
+export const Theme = ({ navigation }: { navigation: any }) => {
   return (
     <View style={Style.container}>
-      <Image style={Style.watch} source={Assets.feeling2} />
-      <Text style={Style.identitytxt}>{Strings.feeling21}</Text>
-      <Text style={Style.widgets2txt}>{Strings.feeling22}</Text>
+      <Image style={Style.watch} source={Assets.themehead} />
+      <Text style={Style.identitytxt}>{Strings.themetxt1}</Text>
       <FlatList
-        contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
-        numColumns={2}
+        data={ThemeImages}
         keyExtractor={(item, index) => index.toString()}
-        data={FEELINGS2}
+        numColumns={3}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity
-              style={[
-                Style.feelingbox,
-                {
-                  backgroundColor:
-                    selectedFeeling == item.item
-                      ? Colors.splash_blue
-                      : Colors.white,
-                },
-              ]}
-              onPress={() => {
-                setSelectedFeeling(item.item);
-              }}
-            >
-              <Text
-                style={[
-                  Style.feelingtxt,
-                  {
-                    color:
-                      selectedFeeling == item.item
-                        ? Colors.white
-                        : Colors.black,
-                  },
-                ]}
-              >
-                {item.item}
-              </Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity>
+              <Image
+                style={{
+                  width: (window_width - 60) / 3,
+                  height: (window_width - 60) / 3,
+                  margin: 10,
+                }}
+                source={item.imagepath}
+              />
+              </TouchableOpacity>
+            </View>
           );
         }}
       />
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("theme");
+            navigation.navigate("lifearea");
           }}
           style={Style.getstartbtn}
         >
@@ -96,7 +75,7 @@ const Style = StyleSheet.create({
     width: window_width / 2,
     alignSelf: "center",
     height: window_height / 4,
-    marginTop: 67,
+    marginTop: 20,
   },
   getstartbtn: {
     width: window_width / 1.8,
@@ -111,7 +90,7 @@ const Style = StyleSheet.create({
     textAlign: "center",
     marginVertical: 10,
   },
-  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 },
+  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 ,position:'absolute',bottom:0,alignSelf:'center'},
   feelingbox: {
     borderWidth: 1,
     borderRadius: 10,

@@ -14,22 +14,23 @@ import {
   window_width,
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
-import { FEELINGS2 } from "./Feeling2";
+import { FEELINGS2 } from "../feeling2/Feeling2";
+import { LIFEAREA } from "./LifeArea";
 
-export const Feeling2 = ({ navigation }: { navigation: any }) => {
+
+export const LifeArea = ({ navigation }: { navigation: any }) => {
   const [selectedFeeling, setSelectedFeeling] = useState<string>(
-    FEELINGS2[0].item
+    LIFEAREA[0].item
   );
   return (
     <View style={Style.container}>
-      <Image style={Style.watch} source={Assets.feeling2} />
-      <Text style={Style.identitytxt}>{Strings.feeling21}</Text>
-      <Text style={Style.widgets2txt}>{Strings.feeling22}</Text>
+      <Image style={Style.watch} source={Assets.lifearea} />
+      <Text style={Style.identitytxt}>{Strings.lifearea1}</Text>
       <FlatList
         contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
         numColumns={2}
         keyExtractor={(item, index) => index.toString()}
-        data={FEELINGS2}
+        data={LIFEAREA}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
@@ -66,7 +67,7 @@ export const Feeling2 = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("theme");
+            navigation.navigate("quotes");
           }}
           style={Style.getstartbtn}
         >
@@ -111,11 +112,11 @@ const Style = StyleSheet.create({
     textAlign: "center",
     marginVertical: 10,
   },
-  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 },
+  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 ,position:'absolute',bottom:0,alignSelf:'center'},
   feelingbox: {
     borderWidth: 1,
     borderRadius: 10,
-    width: window_width / 3,
+    width: window_width / 2.5,
     borderColor: Colors.textinputborder,
     margin: 10,
   },
