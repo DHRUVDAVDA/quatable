@@ -13,6 +13,7 @@ import { Feeling2 } from '../../screens/feeling2';
 import { Theme } from '../../screens/theme';
 import { LifeArea } from '../../screens/lifearea';
 import { Quotes } from '../../screens/quotes';
+import { Setting } from '../../screens/setting';
 
 export const Stack = () => {
     const Stack = createNativeStackNavigator();
@@ -77,6 +78,11 @@ export const Stack = () => {
                 <Stack.Screen
                     component={Quotes}
                     name="quotes"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                <Stack.Screen
+                    component={Setting}
+                    name="setting"
                     options={{ headerShown: false,animation:'slide_from_right' }}
                 />
             </Stack.Navigator>
