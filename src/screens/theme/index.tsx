@@ -15,8 +15,11 @@ import {
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
 import { ThemeImages } from "./Theme";
+import { useDispatch } from "react-redux";
+import { changeQuoteBg } from "../../redux/Slice";
 
 export const Theme = ({ navigation }: { navigation: any }) => {
+  const dispatch = useDispatch()
   return (
     <View style={Style.container}>
       <Image style={Style.watch} source={Assets.themehead} />
@@ -28,7 +31,7 @@ export const Theme = ({ navigation }: { navigation: any }) => {
         renderItem={({ item, index }) => {
           return (
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{dispatch(changeQuoteBg({quoteBg:item.bg}))}}>
               <Image
                 style={{
                   width: (window_width - 60) / 3,

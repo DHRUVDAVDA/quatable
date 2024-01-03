@@ -12,19 +12,22 @@ import { Colors } from "../../resources/colors/Colors";
 import { changeTheme } from "../../redux/Slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Strings } from "../../resources/strings/Strings";
+import PushNotification from "react-native-push-notification";
 
 export const Setting = ({ navigation }: { navigation: any }) => {
- 
   const theme = useSelector((state: any) => state.theme.theme);
-  const [isEnabled, setIsEnabled] = useState<boolean>(theme == 'DARK'?true:false);
-console.log(theme);
+  const [isEnabled, setIsEnabled] = useState<boolean>(
+    theme == "DARK" ? true : false
+  );
+  console.log(theme);
 
   const dispatch = useDispatch();
   const toggleSwitch = () => {
+    const newTheme = theme == 'DARK' ? 'LIGHT' : 'DARK';
     setIsEnabled((previousState) => !previousState);
-    
-    dispatch(changeTheme("LIGHT"));
-  };
+    dispatch(changeTheme({ theme: newTheme }));
+};
+
   return (
     <View>
       <Text style={style.headtxt}>{Strings.settings}</Text>
@@ -33,7 +36,21 @@ console.log(theme);
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity style={style.itemview}>
+            <TouchableOpacity
+              style={style.itemview}
+              onPress={() => {
+                console.log('lala');
+                
+                PushNotification.localNotificationSchedule({
+                  channelId: "test-Channel",
+                  title: "Spendable",
+                  message: "Have you logged your transaction?",
+                  date: new Date(Date.now() + 2 * 1000), // Create a new Date object
+                  allowWhileIdle: true,
+                  repeatType: "week",
+                });
+              }}
+            >
               <Text style={style.itemtxt}>{item.name}</Text>
               {index == 1 && (
                 <Switch

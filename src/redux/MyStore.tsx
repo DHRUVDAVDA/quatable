@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux'; // If not using RTK's combineReducers
+import { configureStore,combineReducers } from '@reduxjs/toolkit'; // If not using RTK's combineReducers
 import reducers from './Slice';
 
 export const rootReducer = combineReducers({
   theme: reducers.theme,
+  quoteBg: reducers.quotebg
   // Other reducers if applicable
 });
 

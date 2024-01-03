@@ -27,6 +27,8 @@ import {
 
 export const NameScreen = ({ navigation }: { navigation: any }) => {
   const theme = useSelector((state: any) => state.theme.theme);
+  console.log('themee',theme);
+  
   return (
     <View
       style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
