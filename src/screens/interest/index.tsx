@@ -59,9 +59,11 @@ export const Interest = ({ navigation }: { navigation: any }) => {
               onPress={() => {
                 const isItemSelected = selectedInterest.includes(item);
                 const isSelectedInterestFull = selectedInterest.length >= 5;
-                
+
                 if (isItemSelected && selectedInterest.length > 1) {
-                  const updatedSelectedInterest = selectedInterest.filter(selectedItem => selectedItem !== item);
+                  const updatedSelectedInterest = selectedInterest.filter(
+                    (selectedItem) => selectedItem !== item
+                  );
                   setSelectedInterest(updatedSelectedInterest);
                 } else if (!isItemSelected && !isSelectedInterestFull) {
                   setSelectedInterest([...selectedInterest, item]);
@@ -72,10 +74,9 @@ export const Interest = ({ navigation }: { navigation: any }) => {
                 style={[
                   Style.feelingtxt,
                   {
-                    color:
-                      selectedInterest.includes(item)
-                        ? Colors.white
-                        : getNormalTxtColor(theme),
+                    color: selectedInterest.includes(item)
+                      ? Colors.white
+                      : getNormalTxtColor(theme),
                   },
                 ]}
               >
