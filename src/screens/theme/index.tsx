@@ -15,15 +15,18 @@ import {
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
 import { ThemeImages } from "./Theme";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeQuoteBg } from "../../redux/Slice";
+import { getBackgroundColor, getNormalTxtColor } from "../../resources/lightdark";
 
 export const Theme = ({ navigation }: { navigation: any }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const theme: string = useSelector((state: any) => state.theme.theme);
   return (
-    <View style={Style.container}>
+    <View
+      style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
       <Image style={Style.watch} source={Assets.themehead} />
-      <Text style={Style.identitytxt}>{Strings.themetxt1}</Text>
+      <Text style={[Style.identitytxt,{color:getNormalTxtColor(theme)}]}>{Strings.themetxt1}</Text>
       <FlatList
         data={ThemeImages}
         keyExtractor={(item, index) => index.toString()}

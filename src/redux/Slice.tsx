@@ -10,9 +10,13 @@ export type notificationConfiguresType = {
   quantity: number;
 };
 
+export type userInterestType = {userinterest : string[]}
+
 const theme: themeType = {theme: 'DARK'};
 
 const quoteBg: quoteBgType = {quoteBg: 'bg1'};
+
+const userInterest:userInterestType = {userinterest:[]}
 
 const notificationConfigures: notificationConfiguresType = {
   startTime: new Date(),
@@ -62,14 +66,33 @@ const notificationConfiguresSlice = createSlice({
   },
 });
 
+const userInterestSlice = createSlice({
+  name: 'interest',
+  initialState: userInterest,
+  reducers: {
+    updateUserInterest: (
+      state: userInterestType,
+      action,
+    ) => {
+      const {userinterest} = action.payload;
+      return {
+        ...state,
+       userinterest:userinterest
+      };
+    },
+  },
+});
+
 export const reducers = {
   theme: themeSlice.reducer,
   quotebg: quoteBgSlice.reducer,
   notificationconfigures: notificationConfiguresSlice.reducer,
+  interest:userInterestSlice.reducer
 };
 
 export const {changeTheme} = themeSlice.actions;
 export const {changeQuoteBg} = quoteBgSlice.actions;
 export const {updateNotificationConfigure} =
   notificationConfiguresSlice.actions;
+  export const {updateUserInterest} = userInterestSlice.actions
 export default reducers;

@@ -14,6 +14,7 @@ import { Theme } from '../../screens/theme';
 import { LifeArea } from '../../screens/lifearea';
 import { Quotes } from '../../screens/quotes';
 import { Setting } from '../../screens/setting';
+import { Interest } from '../../screens/interest';
 
 export const Stack = () => {
     const Stack = createNativeStackNavigator();
@@ -83,6 +84,11 @@ export const Stack = () => {
                 <Stack.Screen
                     component={Setting}
                     name="setting"
+                    options={{ headerShown: false,animation:'slide_from_right' }}
+                />
+                <Stack.Screen
+                    component={Interest}
+                    name="interest"
                     options={{ headerShown: false,animation:'slide_from_right' }}
                 />
             </Stack.Navigator>

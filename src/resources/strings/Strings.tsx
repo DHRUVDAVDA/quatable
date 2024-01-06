@@ -21,5 +21,6 @@ export const Strings = {
     feeling22:'You can select more than one option',
     themetxt1:'Configure your default \n theme',
     lifearea1:'What areas of your life \n would you like to improve?',
+    interest:'What are your interests? \n select up to 5',
     settings:'Settings'
 }

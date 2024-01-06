@@ -16,6 +16,7 @@ import {
 import {Strings} from '../../resources/strings/Strings';
 import {FEELINGS} from './Feeling';
 import {useSelector} from 'react-redux';
+import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from '../../resources/lightdark';
 
 export const Feeling = ({navigation}: {navigation: any}) => {
   const theme = useSelector((state: any) => state.theme.theme);
@@ -23,10 +24,11 @@ export const Feeling = ({navigation}: {navigation: any}) => {
     FEELINGS[0].item,
   );
   return (
-    <View style={Style.container}>
+    <View
+    style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
       <Image style={Style.watch} source={Assets.boywithdog} />
-      <Text style={Style.identitytxt}>{Strings.feeling1}</Text>
-      <Text style={Style.widgets2txt}>{Strings.feeling2}</Text>
+      <Text style={[Style.identitytxt,{color:getNormalTxtColor(theme)}]}>{Strings.feeling1}</Text>
+      <Text style={[Style.widgets2txt,{color:getNormalTxtColor(theme)}]}>{Strings.feeling2}</Text>
       <FlatList
         contentContainerStyle={{alignItems: 'center', marginTop: 10}}
         numColumns={3}
@@ -41,7 +43,7 @@ export const Feeling = ({navigation}: {navigation: any}) => {
                   backgroundColor:
                     selectedFeeling == item.item
                       ? Colors.splash_blue
-                      : Colors.white,
+                      : getPlaceHolderBackgroundColor(theme),
                 },
               ]}
               onPress={() => {
@@ -54,7 +56,7 @@ export const Feeling = ({navigation}: {navigation: any}) => {
                     color:
                       selectedFeeling == item.item
                         ? Colors.white
-                        : Colors.black,
+                        : getNormalTxtColor(theme),
                   },
                 ]}>
                 {item.item}
@@ -112,10 +114,10 @@ const Style = StyleSheet.create({
   },
   btmview: {flex: 1, justifyContent: 'flex-end', marginBottom: 20},
   feelingbox: {
-    borderWidth: 1,
+    
     borderRadius: 10,
     width: window_width / 4,
-    borderColor: Colors.textinputborder,
+   
     margin: 10,
   },
   feelingtxt: {

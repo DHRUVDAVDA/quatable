@@ -14,40 +14,58 @@ import {
   window_width,
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
-import { FEELINGS2 } from "./Feeling2";
+import { FEELINGS2 } from "../feeling2/Feeling2";
 import { useSelector } from "react-redux";
-import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
+import {
+  getBackgroundColor,
+  getNormalTxtColor,
+  getPlaceHolderBackgroundColor,
+} from "../../resources/lightdark";
+import { interestArr } from "./Interest";
 
-export const Feeling2 = ({ navigation }: { navigation: any }) => {
-  const theme = useSelector((state: any) => state.theme.theme);
-  const [selectedFeeling, setSelectedFeeling] = useState<string>(
-    FEELINGS2[0].item
-  );
+export const Interest = ({ navigation }: { navigation: any }) => {
+  const theme: string = useSelector((state: any) => state.theme.theme);
+  const [selectedInterest, setSelectedInterest] = useState<string[]>([
+    interestArr[0],
+  ]);
   return (
     <View
-    style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
-      <Image style={Style.watch} source={Assets.feeling2} />
-      <Text style={[Style.identitytxt,{color:getNormalTxtColor(theme)}]}>{Strings.feeling21}</Text>
-      <Text style={[Style.widgets2txt,{color:getNormalTxtColor(theme)}]}>{Strings.feeling22}</Text>
+      style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
+    >
+      <Image style={Style.watch} source={Assets.lifearea} />
+      <Text style={[Style.identitytxt, { color: getNormalTxtColor(theme) }]}>
+        {Strings.interest}
+      </Text>
       <FlatList
-        contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
+        contentContainerStyle={{
+          alignSelf: "center",
+          marginTop: 10,
+          paddingBottom: 100,
+        }}
         numColumns={2}
         keyExtractor={(item, index) => index.toString()}
-        data={FEELINGS2}
+        data={interestArr}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
               style={[
                 Style.feelingbox,
                 {
-                  backgroundColor:
-                    selectedFeeling == item.item
-                      ? Colors.splash_blue
-                      : getPlaceHolderBackgroundColor(theme),
+                  backgroundColor: selectedInterest.includes(item)
+                    ? Colors.splash_blue
+                    : getPlaceHolderBackgroundColor(theme),
                 },
               ]}
               onPress={() => {
-                setSelectedFeeling(item.item);
+                const isItemSelected = selectedInterest.includes(item);
+                const isSelectedInterestFull = selectedInterest.length >= 5;
+                
+                if (isItemSelected && selectedInterest.length > 1) {
+                  const updatedSelectedInterest = selectedInterest.filter(selectedItem => selectedItem !== item);
+                  setSelectedInterest(updatedSelectedInterest);
+                } else if (!isItemSelected && !isSelectedInterestFull) {
+                  setSelectedInterest([...selectedInterest, item]);
+                }
               }}
             >
               <Text
@@ -55,13 +73,13 @@ export const Feeling2 = ({ navigation }: { navigation: any }) => {
                   Style.feelingtxt,
                   {
                     color:
-                      selectedFeeling == item.item
+                      selectedInterest.includes(item)
                         ? Colors.white
                         : getNormalTxtColor(theme),
                   },
                 ]}
               >
-                {item.item}
+                {item}
               </Text>
             </TouchableOpacity>
           );
@@ -70,7 +88,7 @@ export const Feeling2 = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("theme");
+            navigation.navigate("quotes");
           }}
           style={Style.getstartbtn}
         >
@@ -115,17 +133,25 @@ const Style = StyleSheet.create({
     textAlign: "center",
     marginVertical: 10,
   },
-  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 },
+  btmview: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 20,
+    position: "absolute",
+    bottom: 0,
+    alignSelf: "center",
+  },
   feelingbox: {
     borderRadius: 10,
-    width: window_width / 3,
+    width: window_width / 2.5,
+    borderColor: Colors.textinputborder,
     margin: 10,
   },
   feelingtxt: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.black,
-    textAlign: 'center',
+    textAlign: "center",
     marginVertical: 10,
   },
 });

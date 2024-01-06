@@ -5,6 +5,7 @@ export const rootReducer = combineReducers({
   theme: reducers.theme,
   quoteBg: reducers.quotebg,
   notificationconfigures: reducers.notificationconfigures,
+  interest:reducers.interest
   // Other reducers if applicable
 });
 

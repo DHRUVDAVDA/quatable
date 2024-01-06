@@ -16,16 +16,20 @@ import {
 import { Strings } from "../../resources/strings/Strings";
 import { FEELINGS2 } from "../feeling2/Feeling2";
 import { LIFEAREA } from "./LifeArea";
+import { useSelector } from "react-redux";
+import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
 
 
 export const LifeArea = ({ navigation }: { navigation: any }) => {
+  const theme: string = useSelector((state: any) => state.theme.theme);
   const [selectedFeeling, setSelectedFeeling] = useState<string>(
     LIFEAREA[0].item
   );
   return (
-    <View style={Style.container}>
+    <View
+    style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
       <Image style={Style.watch} source={Assets.lifearea} />
-      <Text style={Style.identitytxt}>{Strings.lifearea1}</Text>
+      <Text style={[Style.identitytxt,{color:getNormalTxtColor(theme)}]}>{Strings.lifearea1}</Text>
       <FlatList
         contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
         numColumns={2}
@@ -40,7 +44,7 @@ export const LifeArea = ({ navigation }: { navigation: any }) => {
                   backgroundColor:
                     selectedFeeling == item.item
                       ? Colors.splash_blue
-                      : Colors.white,
+                      : getPlaceHolderBackgroundColor(theme),
                 },
               ]}
               onPress={() => {
@@ -54,7 +58,7 @@ export const LifeArea = ({ navigation }: { navigation: any }) => {
                     color:
                       selectedFeeling == item.item
                         ? Colors.white
-                        : Colors.black,
+                        : getNormalTxtColor(theme),
                   },
                 ]}
               >
@@ -67,7 +71,7 @@ export const LifeArea = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("quotes");
+            navigation.navigate("interest");
           }}
           style={Style.getstartbtn}
         >
@@ -114,7 +118,6 @@ const Style = StyleSheet.create({
   },
   btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 ,position:'absolute',bottom:0,alignSelf:'center'},
   feelingbox: {
-    borderWidth: 1,
     borderRadius: 10,
     width: window_width / 2.5,
     borderColor: Colors.textinputborder,

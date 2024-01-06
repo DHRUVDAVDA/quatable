@@ -9,7 +9,7 @@ import {
 import {Strings} from '../../resources/strings/Strings';
 import Slider from '@react-native-community/slider';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBackgroundColor, getNormalTxtColor} from '../../resources/lightdark';
+import {getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor} from '../../resources/lightdark';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   notificationConfiguresType,
@@ -17,13 +17,13 @@ import {
   updateNotificationConfigure,
 } from '../../redux/Slice';
 import {scheduleNotification} from './Reminder';
+import moment from 'moment';
 
 export const Reminder = ({navigation}: {navigation: any}) => {
   const theme: string = useSelector((state: any) => state.theme.theme);
   const notificationConfigures: notificationConfiguresType = useSelector(
     (state: any) => state.notificationconfigures,
   );
-  console.log(notificationConfigures);
 
   const dispatch = useDispatch();
   const [selectedValue, setSelectedValue] = useState<number>(0);
@@ -112,13 +112,13 @@ export const Reminder = ({navigation}: {navigation: any}) => {
             onPress={() => {
               showStartTimePicker();
             }}
-            style={Style.timebox}>
-            <Text style={[Style.howmanytxt, {padding: 10}]}>
-              {Strings.startat}
+            style={[Style.timebox,{backgroundColor:getPlaceHolderBackgroundColor(theme)}]}>
+            <Text style={[Style.howmanytxt, {padding: 10,paddingHorizontal:20,color: getNormalTxtColor(theme)}]}>
+              {moment(notificationConfigures.startTime).format('hh:mm')}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={Style.starightline}></View>
+        <View style={[Style.starightline,{borderColor:getPlaceHolderBackgroundColor(theme)}]}></View>
         <View>
           <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
             {Strings.endat}
@@ -127,9 +127,9 @@ export const Reminder = ({navigation}: {navigation: any}) => {
             onPress={() => {
               showEndTimePicker();
             }}
-            style={Style.timebox}>
-            <Text style={[Style.howmanytxt, {padding: 10}]}>
-              {Strings.startat}
+            style={[Style.timebox,{backgroundColor:getPlaceHolderBackgroundColor(theme)}]}>
+            <Text style={[Style.howmanytxt, {padding: 10,paddingHorizontal:20,color: getNormalTxtColor(theme)}]}>
+              {moment(notificationConfigures.endTime).format('hh:mm')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -140,11 +140,12 @@ export const Reminder = ({navigation}: {navigation: any}) => {
         </Text>
 
         <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
-          {selectedValue + 'X'}
+          {notificationConfigures.quantity + 'X'}
         </Text>
       </View>
       <Slider
         style={{width: 308, height: 40, alignSelf: 'center'}}
+        value={Number(notificationConfigures.quantity)}
         onValueChange={number => {
           dispatch(
             updateNotificationConfigure({
@@ -193,7 +194,7 @@ export const Reminder = ({navigation}: {navigation: any}) => {
         <TouchableOpacity
           onPress={() => {
             scheduleNotification(notificationConfigures);
-            // navigation.navigate('widgets');
+            navigation.navigate('widgets');
           }}
           style={Style.getstartbtn}>
           <Text style={Style.getstarttxt}>{Strings.continue}</Text>
