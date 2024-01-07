@@ -37,7 +37,15 @@ export const GetStarted = ({ navigation }: { navigation: any }) => {
         <Text style={[Style.descriptiontxt2,{color:getNormalTxtColor(theme)}]}>{Strings.getstarttxt}</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("namescreen");
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "namescreen",
+                },
+              ],
+            });
+            
           }}
           style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme) }]}
         >

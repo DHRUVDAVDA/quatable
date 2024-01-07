@@ -16,7 +16,7 @@ import {
 import {Strings} from '../../resources/strings/Strings';
 import {FEELINGS} from './Feeling';
 import {useSelector} from 'react-redux';
-import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from '../../resources/lightdark';
+import { getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from '../../resources/lightdark';
 
 export const Feeling = ({navigation}: {navigation: any}) => {
   const theme = useSelector((state: any) => state.theme.theme);
@@ -68,10 +68,17 @@ export const Feeling = ({navigation}: {navigation: any}) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('feeling2');
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "feeling2",
+                },
+              ],
+            });
           }}
-          style={Style.getstartbtn}>
-          <Text style={Style.getstarttxt}>{Strings.continue}</Text>
+          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
+          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
         </TouchableOpacity>
       </View>
     </View>

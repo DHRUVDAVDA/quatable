@@ -29,7 +29,14 @@ export const GetStarted2 = ({ navigation }: { navigation: any }) => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("gender");
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: "gender",
+              },
+            ],
+          });
         }}
         style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}
       >

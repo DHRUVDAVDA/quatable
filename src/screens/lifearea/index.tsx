@@ -17,7 +17,7 @@ import { Strings } from "../../resources/strings/Strings";
 import { FEELINGS2 } from "../feeling2/Feeling2";
 import { LIFEAREA } from "./LifeArea";
 import { useSelector } from "react-redux";
-import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
+import { getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
 
 
 export const LifeArea = ({ navigation }: { navigation: any }) => {
@@ -71,11 +71,17 @@ export const LifeArea = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("interest");
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "interest",
+                },
+              ],
+            });
           }}
-          style={Style.getstartbtn}
-        >
-          <Text style={Style.getstarttxt}>{Strings.continue}</Text>
+          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
+          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
         </TouchableOpacity>
       </View>
     </View>

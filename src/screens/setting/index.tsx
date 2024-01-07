@@ -13,6 +13,7 @@ import { changeTheme } from "../../redux/Slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Strings } from "../../resources/strings/Strings";
 import PushNotification from "react-native-push-notification";
+import { getBackgroundColor, getNormalTxtColor } from "../../resources/lightdark";
 
 export const Setting = ({ navigation }: { navigation: any }) => {
   const theme = useSelector((state: any) => state.theme.theme);
@@ -29,29 +30,43 @@ export const Setting = ({ navigation }: { navigation: any }) => {
 };
 
   return (
-    <View>
-      <Text style={style.headtxt}>{Strings.settings}</Text>
+   <View
+    style={{flex:1,backgroundColor: getBackgroundColor(theme)}}>
+      <Text style={[style.headtxt,{color:getNormalTxtColor(theme)}]}>{Strings.settings}</Text>
       <FlatList
         data={settingOptions}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
-              style={style.itemview}
+              style={[style.itemview,{borderColor:getNormalTxtColor(theme)}]}
               onPress={() => {
-                console.log('lala');
+                let screenToNavigate = null;
+
+                switch(index) {
+                  case 0:
+                  case 1:
+                  case 2:
+                    screenToNavigate = 'reminder';
+                    break;
+                  case 3:
+                    screenToNavigate = 'interest';
+                    break;
+                  case 4:
+                    screenToNavigate = 'theme';
+                    break;
+                  default:
+                    screenToNavigate = null;
+                }
+              
+                if (screenToNavigate) {
+                  navigation.navigate(screenToNavigate);
+                }
                 
-                PushNotification.localNotificationSchedule({
-                  channelId: "test-Channel",
-                  title: "Spendable",
-                  message: "Have you logged your transaction?",
-                  date: new Date(Date.now() + 2 * 1000), // Create a new Date object
-                  allowWhileIdle: true,
-                  repeatType: "week",
-                });
+                
               }}
             >
-              <Text style={style.itemtxt}>{item.name}</Text>
+              <Text style={[style.itemtxt,{color:getNormalTxtColor(theme)}]}>{item.name}</Text>
               {index == 1 && (
                 <Switch
                   style={style.switchstyle}

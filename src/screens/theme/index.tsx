@@ -17,7 +17,7 @@ import { Strings } from "../../resources/strings/Strings";
 import { ThemeImages } from "./Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { changeQuoteBg } from "../../redux/Slice";
-import { getBackgroundColor, getNormalTxtColor } from "../../resources/lightdark";
+import { getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor } from "../../resources/lightdark";
 
 export const Theme = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
@@ -53,9 +53,8 @@ export const Theme = ({ navigation }: { navigation: any }) => {
           onPress={() => {
             navigation.navigate("lifearea");
           }}
-          style={Style.getstartbtn}
-        >
-          <Text style={Style.getstarttxt}>{Strings.continue}</Text>
+          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
+          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
         </TouchableOpacity>
       </View>
     </View>

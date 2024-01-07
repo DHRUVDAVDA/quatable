@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { QuoteType, fetchQuotes } from "./Quotes";
+import { QuoteType, fetchQuotes, fetchQuotesWithTags } from "./Quotes";
 import {
   window_height,
   window_width,
@@ -17,41 +17,58 @@ import { useSelector } from "react-redux";
 import { Colors } from "../../resources/colors/Colors";
 import { Strings } from "../../resources/strings/Strings";
 import { Assets } from "../../resources/images/Imagepath";
+import { Loader } from "../../component/loader";
 
 export const Quotes = ({ navigation }: { navigation: any }) => {
   const theme = useSelector((state: any) => state.theme.theme);
   const quoteBg = useSelector((state: any) => state.quoteBg.quoteBg);
-  console.log(quoteBg);
+  const tags = useSelector((state: any) => state.interest.userinterest)
+  console.log(tags);
+  
+  const [isLoader, setIsLoader] = useState<boolean>(false);
 
   const [fetchedQuotes, setFetchedQuotes] = useState<QuoteType[]>([]);
   useEffect(() => {
-    fetchQuotes().then((data: QuoteType[]) => setFetchedQuotes(data));
+    setIsLoader(true);
+    fetchQuotesWithTags(tags).then((data: QuoteType[]) => {
+      console.log(data);
+      
+      setFetchedQuotes(data), setIsLoader(false);
+    });
   }, []);
   return (
     <View>
-       <ImageBackground style={style.flatlistbackground}  source={Assets[quoteBg]}>
-      <FlatList
-        style={{ position: "absolute" }}
-        data={fetchedQuotes}
-        keyExtractor={(index, item) => index?.toString()}
-        horizontal
-        pagingEnabled
-        onEndReached={() => {
-          fetchQuotes().then((data) =>
-            setFetchedQuotes([...fetchedQuotes, ...data])
-          );
-        }}
-        renderItem={({ item, index }) => {
-          return (
-           <View style={{width:window_width,height:window_height,justifyContent:'center'}}>
-            <Text style={style.contenttxt}>{item.content}</Text>
-           </View>
-              
-           
-          );
-        }}
-      />
-       </ImageBackground>
+      <ImageBackground
+        style={style.flatlistbackground}
+        source={Assets[quoteBg]}
+      >
+        <Loader isVisible={isLoader} />
+        <FlatList
+          style={{ position: "absolute" }}
+          data={fetchedQuotes}
+          keyExtractor={(index, item) => index?.toString()}
+          horizontal
+          pagingEnabled
+          onEndReached={() => {
+            fetchQuotes().then((data) =>
+              setFetchedQuotes([...fetchedQuotes, ...data])
+            );
+          }}
+          renderItem={({ item, index }) => {
+            return (
+              <View
+                style={{
+                  width: window_width,
+                  height: window_height,
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={style.contenttxt}>{item.content}</Text>
+              </View>
+            );
+          }}
+        />
+      </ImageBackground>
       <TouchableOpacity
         style={style.settingbtn}
         onPress={() => navigation.navigate("setting")}

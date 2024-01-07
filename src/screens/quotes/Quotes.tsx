@@ -27,3 +27,23 @@ export const fetchQuotes = (): Promise<QuoteType[]> => {
       });
   });
 };
+
+export const fetchQuotesWithTags = (tags:string[]): Promise<QuoteType[]> => {
+  return new Promise((resolve, reject) => {
+    const lowercaseTags = tags.map(tag => tag.toLowerCase());
+    let string = lowercaseTags.join('|')
+    console.log(string);
+    
+    fetch(`https://api.quotable.io/quotes?tags=${string}`)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        const quotes: QuoteType[] = json?.results;
+        resolve(quotes);
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
+  });
+};

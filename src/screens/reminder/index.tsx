@@ -9,7 +9,7 @@ import {
 import {Strings} from '../../resources/strings/Strings';
 import Slider from '@react-native-community/slider';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor} from '../../resources/lightdark';
+import {getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor, getPlaceHolderBackgroundColor} from '../../resources/lightdark';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   notificationConfiguresType,
@@ -194,10 +194,17 @@ export const Reminder = ({navigation}: {navigation: any}) => {
         <TouchableOpacity
           onPress={() => {
             scheduleNotification(notificationConfigures);
-            navigation.navigate('widgets');
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "feeling",
+                },
+              ],
+            });
           }}
-          style={Style.getstartbtn}>
-          <Text style={Style.getstarttxt}>{Strings.continue}</Text>
+          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
+          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
         </TouchableOpacity>
       </View>
     </View>

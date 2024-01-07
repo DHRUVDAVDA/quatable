@@ -15,7 +15,7 @@ import {
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
 import { identity } from "./Gender";
-import { getBackgroundColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
+import { getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor, getPlaceHolderBackgroundColor } from "../../resources/lightdark";
 import { useSelector } from "react-redux";
 
 export const Gender = ({ navigation }: { navigation: any }) => {
@@ -65,19 +65,26 @@ export const Gender = ({ navigation }: { navigation: any }) => {
       />
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("reminder");
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: "reminder",
+              },
+            ],
+          });
         }}
         style={[
           Style.getstartbtn,
           {
-            backgroundColor: Colors.white,
+            backgroundColor: getBtnColor(theme),
             alignItems: "center",
             justifyContent: "center",
             marginVertical: 25,
           },
         ]}
       >
-        <Text style={[Style.getstarttxt, { color: Colors.splash_blue }]}>
+        <Text style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}>
           {Strings.prefernot}
         </Text>
       </TouchableOpacity>

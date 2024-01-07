@@ -81,7 +81,14 @@ export const NameScreen = ({ navigation }: { navigation: any }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("namescreen");
+              navigation.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: "namescreen",
+                  },
+                ],
+              });
             }}
             style={[
               Style.getstartbtn,

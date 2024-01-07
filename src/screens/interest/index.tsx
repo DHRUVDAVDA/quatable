@@ -15,19 +15,23 @@ import {
 } from "../../resources/dimensions/dimensions";
 import { Strings } from "../../resources/strings/Strings";
 import { FEELINGS2 } from "../feeling2/Feeling2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getBackgroundColor,
+  getBtnColor,
+  getBtnTxtColor,
   getNormalTxtColor,
   getPlaceHolderBackgroundColor,
 } from "../../resources/lightdark";
 import { interestArr } from "./Interest";
+import { updateUserInterest } from "../../redux/Slice";
 
 export const Interest = ({ navigation }: { navigation: any }) => {
   const theme: string = useSelector((state: any) => state.theme.theme);
   const [selectedInterest, setSelectedInterest] = useState<string[]>([
     interestArr[0],
   ]);
+  const dispatch = useDispatch();
   return (
     <View
       style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
@@ -89,11 +93,18 @@ export const Interest = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("quotes");
+            dispatch(updateUserInterest({userinterest:selectedInterest}))
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "quotes",
+                },
+              ],
+            });
           }}
-          style={Style.getstartbtn}
-        >
-          <Text style={Style.getstarttxt}>{Strings.continue}</Text>
+          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
+          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
         </TouchableOpacity>
       </View>
     </View>
