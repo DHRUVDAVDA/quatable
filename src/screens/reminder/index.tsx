@@ -52,9 +52,9 @@ export const Reminder = ({navigation}: {navigation: any}) => {
     console.warn('A date has been picked: ', date);
     dispatch(
       updateNotificationConfigure({
-        startTime: date,
+        startTime: date.getTime(),
         endTime: notificationConfigures.endTime,
-        quantity: notificationConfigures.endTime,
+        quantity: notificationConfigures.quantity,
       }),
     );
     hideStartTimePicker();
@@ -65,8 +65,8 @@ export const Reminder = ({navigation}: {navigation: any}) => {
     dispatch(
       updateNotificationConfigure({
         startTime: notificationConfigures.startTime,
-        endTime: date,
-        quantity: notificationConfigures.endTime,
+        endTime: date.getTime(),
+        quantity: notificationConfigures.quantity,
       }),
     );
     hideEndTimePicker();

@@ -11,15 +11,14 @@ export const scheduleNotification = (
   const endTime = notificationConfigures.endTime; // End time in ISO 8601 format
   const notificationQuantity = notificationConfigures.quantity; // Number of notifications
 
-  const timeDifference = endTime.getTime() - startTime.getTime();
+  const timeDifference = endTime - startTime;
   const interval = timeDifference / (notificationQuantity + 1);
 
-  let currentTime = startTime.getTime();
+  let currentTime = startTime;
 
   for (let i = 0; i < notificationQuantity; i++) {
     currentTime += interval;
     const notificationTime = new Date(currentTime);
-console.log(new Date(currentTime));
 
     PushNotification.localNotificationSchedule({
       channelId: 'test-Channel',

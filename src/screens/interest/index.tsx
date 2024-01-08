@@ -24,13 +24,17 @@ import {
   getPlaceHolderBackgroundColor,
 } from "../../resources/lightdark";
 import { interestArr } from "./Interest";
-import { updateUserInterest } from "../../redux/Slice";
+import { updateNewUser, updateUserInterest } from "../../redux/Slice";
 
 export const Interest = ({ navigation }: { navigation: any }) => {
   const theme: string = useSelector((state: any) => state.theme.theme);
   const [selectedInterest, setSelectedInterest] = useState<string[]>([
     interestArr[0],
   ]);
+  const newuser = useSelector((state: any) => state.newuser.newuser);
+  console.log(newuser);
+  
+
   const dispatch = useDispatch();
   return (
     <View
@@ -94,6 +98,7 @@ export const Interest = ({ navigation }: { navigation: any }) => {
         <TouchableOpacity
           onPress={() => {
             dispatch(updateUserInterest({userinterest:selectedInterest}))
+            dispatch(updateNewUser({newuser:false}))
             navigation.reset({
               index: 0,
               routes: [

@@ -14,20 +14,35 @@ import {
 } from "../../resources/dimensions/dimensions";
 import { Colors } from "../../resources/colors/Colors";
 import { createChannel } from "./Splash";
+import { useSelector } from "react-redux";
 
 //This is splash screen which open for the few seconds
 export const SplashScreen = ({ navigation }: { navigation: any }) => {
+  const newuser = useSelector((state: any) => state.newuser.newuser);
+  console.log("newuser", newuser);
+
   useEffect(() => {
     setTimeout(() => {
       createChannel();
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: "getstart",
-          },
-        ],
-      });
+      if (newuser) {
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "getstart",
+            },
+          ],
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "quotes",
+            },
+          ],
+        });
+      }
     }, 2000);
   }, []);
   return (

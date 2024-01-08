@@ -35,4 +35,5 @@ export const Assets = {
     bg8: require("../images/bg8.jpg"),
     bg9: require("../images/bg9.jpg"),
     lifearea:require('../images/lifearea.png'),
+    share:require('../images/share.png'),
 }

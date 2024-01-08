@@ -5,7 +5,7 @@ export const Strings = {
     whatsname:'What is your name ?',
     yourname:'Your Name',
     continue:'Continue',
-    skipnow:'Skip for now',
+    skipnow:'Skip for now ->',
     identity:'Which is your current \n gender identity?',
     prefernot:'Prefer not to say',
     setreminder:'Set daily Motivation \n Reminders.',

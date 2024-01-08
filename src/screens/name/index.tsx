@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -16,7 +16,7 @@ import {
 import { Colors } from "../../resources/colors/Colors";
 import { Strings } from "../../resources/strings/Strings";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getBackgroundColor,
   getBtnColor,
@@ -24,11 +24,15 @@ import {
   getNormalTxtColor,
   getPlaceHolderBackgroundColor,
 } from "../../resources/lightdark";
+import { updateName } from "../../redux/Slice";
 
 export const NameScreen = ({ navigation }: { navigation: any }) => {
   const theme = useSelector((state: any) => state.theme.theme);
-  console.log('themee',theme);
-  
+  const [name, setName] = useState<string>("");
+  const nameRedux = useSelector((state: any) => state.name.name);
+  const dispatch = useDispatch();
+  console.log("nameRedux", nameRedux);
+
   return (
     <View
       style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
@@ -63,53 +67,68 @@ export const NameScreen = ({ navigation }: { navigation: any }) => {
               ]}
               placeholderTextColor={getNormalTxtColor(theme)}
               placeholder={Strings.yourname}
+              onChangeText={(text) => {
+                setName(text?.trim());
+              }}
             />
           </View>
         </KeyboardAwareScrollView>
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("getstart2");
-            }}
-            style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme) }]}
-          >
-            <Text
-              style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}
-            >
-              {Strings.continue}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
+              if (name) {
+                dispatch(updateName({ name: name }));
+              }
               navigation.reset({
                 index: 0,
                 routes: [
                   {
-                    name: "namescreen",
+                    name: "getstart2",
                   },
                 ],
               });
             }}
-            style={[
-              Style.getstartbtn,
-              {
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginVertical: 25,
-              },
-            ]}
+            style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme),marginBottom:name.length ==0? 0:20 }]}
           >
-            <Text
+            <Text style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}>
+              {Strings.continue}
+            </Text>
+          </TouchableOpacity>
+          {name?.length == 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: "getstart2",
+                    },
+                  ],
+                });
+              }}
               style={[
-                Style.getstarttxt,
-                { color: Colors.splash_blue, textDecorationLine: "underline" },
+                Style.getstartbtn,
+                {
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginVertical: 25,
+                },
               ]}
             >
-              {Strings.skipnow}
-            </Text>
-            <Image style={Style.rightarrowicon} source={Assets.rightarrow} />
-          </TouchableOpacity>
+              <Text
+                style={[
+                  Style.getstarttxt,
+                  {
+                    color: Colors.splash_blue,
+                    textDecorationLine: "underline",
+                  },
+                ]}
+              >
+                {Strings.skipnow}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
