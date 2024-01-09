@@ -25,6 +25,7 @@ import Share from 'react-native-share';
 export const Quotes = ({ navigation }: { navigation: any }) => {
   const theme = useSelector((state: any) => state.theme.theme);
   const quoteBg = useSelector((state: any) => state.quoteBg.quoteBg);
+  const fontstyle = useSelector((state: any) => state.quoteBg.fontstyle);
   const tags = useSelector((state: any) => state.interest.userinterest);
   const viewShotRef = useRef(null);
 
@@ -98,7 +99,7 @@ export const Quotes = ({ navigation }: { navigation: any }) => {
                   justifyContent: "center",
                 }}
               >
-                <Text style={style.contenttxt}>{item.content}</Text>
+                <Text style={[style.contenttxt,{fontFamily:fontstyle}]}>{item.content}</Text>
               </View>
             )}
           />

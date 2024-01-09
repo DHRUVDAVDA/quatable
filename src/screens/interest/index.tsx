@@ -26,15 +26,23 @@ import {
 import { interestArr } from "./Interest";
 import { updateNewUser, updateUserInterest } from "../../redux/Slice";
 
-export const Interest = ({ navigation }: { navigation: any }) => {
+export const Interest = ({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) => {
   const theme: string = useSelector((state: any) => state.theme.theme);
-  const [selectedInterest, setSelectedInterest] = useState<string[]>([
-    interestArr[0],
+  const tags = useSelector((state: any) => state.interest.userinterest);
+  const { fromSetting } = route.params || {};
+  console.log('tags',tags);
+  
+  const [selectedInterest, setSelectedInterest] = useState<string[]>(fromSetting ? tags : [
+   interestArr[0],
   ]);
   const newuser = useSelector((state: any) => state.newuser.newuser);
-  console.log(newuser);
   
-
   const dispatch = useDispatch();
   return (
     <View
@@ -97,19 +105,24 @@ export const Interest = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            dispatch(updateUserInterest({userinterest:selectedInterest}))
-            dispatch(updateNewUser({newuser:false}))
-            navigation.reset({
-              index: 0,
-              routes: [
-                {
-                  name: "quotes",
-                },
-              ],
-            });
+            dispatch(updateUserInterest({ userinterest: selectedInterest }));
+            dispatch(updateNewUser({ newuser: false }));
+            fromSetting
+              ? navigation.goBack()
+              : navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: "quotes",
+                    },
+                  ],
+                });
           }}
-          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
-          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
+          style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme) }]}
+        >
+          <Text style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}>
+            {fromSetting ? Strings.save : Strings.continue}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

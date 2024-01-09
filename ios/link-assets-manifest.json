@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/DancingScript-VariableFont_wght.ttf",
+      "sha1": "80f13e7575ec59a51b7fdc42bb0b9d7a34439123"
+    },
+    {
+      "path": "assets/fonts/Gurajada-Regular.ttf",
+      "sha1": "8fa17a0a574c79a5f41325512b860c1083b1bec1"
+    },
+    {
+      "path": "assets/fonts/IndieFlower-Regular.ttf",
+      "sha1": "dab8ff786dd1c6a3e8fa8a54d4d59cf9a703efe1"
+    },
+    {
+      "path": "assets/fonts/InstrumentSerif-Regular.ttf",
+      "sha1": "fe806f19fde011deddb15c2207732b938d7ec434"
+    },
+    {
+      "path": "assets/fonts/Lemon-Regular.ttf",
+      "sha1": "dab9016bfd7382b6eb5725a1f3a96e5578495566"
+    },
+    {
+      "path": "assets/fonts/LongCang-Regular.ttf",
+      "sha1": "e11bc4a910eecaa687610b139b770149a6bfd42d"
+    },
+    {
+      "path": "assets/fonts/Pacifico-Regular.ttf",
+      "sha1": "baca1fca7fe74b61cb33aa0da48ec1a3a77bcf49"
+    },
+    {
+      "path": "assets/fonts/RobotoMono-VariableFont_wght.ttf",
+      "sha1": "db68e7694003b4a0f58c675b4131a8226a566f5c"
+    },
+    {
+      "path": "assets/fonts/Teko-VariableFont_wght.ttf",
+      "sha1": "7fd521101888c96d1ef85d94ac5b4ba5697b4067"
+    }
+  ]
+}

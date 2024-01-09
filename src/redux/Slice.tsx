@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export type themeType = { theme: string };
 
-export type quoteBgType = { quoteBg: string };
+export type quoteBgType = { quoteBg: string ,fontstyle:string};
 
 export type notificationConfiguresType = {
   startTime: number;
@@ -14,7 +14,7 @@ export type userInterestType = { userinterest: string[] };
 
 const theme: themeType = { theme: "DARK" };
 
-const quoteBg: quoteBgType = { quoteBg: "bg1" };
+const quoteBg: quoteBgType = { quoteBg: "bg1" ,fontstyle:''};
 
 const userInterest: userInterestType = { userinterest: [] };
 
@@ -45,8 +45,8 @@ const quoteBgSlice = createSlice({
   initialState: quoteBg,
   reducers: {
     changeQuoteBg: (state: quoteBgType, action) => {
-      const { quoteBg } = action.payload;
-      return { ...state, quoteBg: quoteBg };
+      const { quoteBg,fontstyle } = action.payload;
+      return { ...state, quoteBg: quoteBg,fontstyle:fontstyle };
     },
   },
 });

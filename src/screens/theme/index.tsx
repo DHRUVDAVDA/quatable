@@ -17,16 +17,31 @@ import { Strings } from "../../resources/strings/Strings";
 import { ThemeImages } from "./Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { changeQuoteBg } from "../../redux/Slice";
-import { getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor } from "../../resources/lightdark";
+import {
+  getBackgroundColor,
+  getBtnColor,
+  getBtnTxtColor,
+  getNormalTxtColor,
+} from "../../resources/lightdark";
 
-export const Theme = ({ navigation }: { navigation: any }) => {
+export const Theme = ({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) => {
   const dispatch = useDispatch();
+  const { fromSetting } = route.params || {};
   const theme: string = useSelector((state: any) => state.theme.theme);
   return (
     <View
-      style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
+      style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
+    >
       <Image style={Style.watch} source={Assets.themehead} />
-      <Text style={[Style.identitytxt,{color:getNormalTxtColor(theme)}]}>{Strings.themetxt1}</Text>
+      <Text style={[Style.identitytxt, { color: getNormalTxtColor(theme) }]}>
+        {Strings.themetxt1}
+      </Text>
       <FlatList
         data={ThemeImages}
         keyExtractor={(item, index) => index.toString()}
@@ -34,15 +49,35 @@ export const Theme = ({ navigation }: { navigation: any }) => {
         renderItem={({ item, index }) => {
           return (
             <View>
-                <TouchableOpacity onPress={()=>{dispatch(changeQuoteBg({quoteBg:item.bg}))}}>
-              <Image
-                style={{
-                  width: (window_width - 60) / 3,
-                  height: (window_width - 60) / 3,
-                  margin: 10,
+              <TouchableOpacity
+                style={{ justifyContent: "center" }}
+                onPress={() => {
+                  dispatch(
+                    changeQuoteBg({
+                      quoteBg: item.bg,
+                      fontstyle: item.fontstyle,
+                    })
+                  );
                 }}
-                source={item.imagepath}
-              />
+              >
+                <Image
+                  style={{
+                    width: (window_width - 60) / 3,
+                    height: (window_width - 60) / 3,
+                    margin: 10,
+                  }}
+                  source={item.imagepath}
+                />
+                <Text
+                  style={{
+                    fontFamily: item.fontstyle,
+                    position: "absolute",
+                    alignSelf: "center",
+                    fontSize: 22,
+                  }}
+                >
+                  abcd
+                </Text>
               </TouchableOpacity>
             </View>
           );
@@ -51,10 +86,13 @@ export const Theme = ({ navigation }: { navigation: any }) => {
       <View style={Style.btmview}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("lifearea");
+            fromSetting ? navigation.goBack() : navigation.navigate("lifearea");
           }}
-          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
-          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
+          style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme) }]}
+        >
+          <Text style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}>
+            {fromSetting ? Strings.save : Strings.continue}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -95,7 +133,14 @@ const Style = StyleSheet.create({
     textAlign: "center",
     marginVertical: 10,
   },
-  btmview: { flex: 1, justifyContent: "flex-end", marginBottom: 20 ,position:'absolute',bottom:0,alignSelf:'center'},
+  btmview: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 20,
+    position: "absolute",
+    bottom: 0,
+    alignSelf: "center",
+  },
   feelingbox: {
     borderWidth: 1,
     borderRadius: 10,

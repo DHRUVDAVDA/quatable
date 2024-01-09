@@ -1,36 +1,51 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
-import {Colors} from '../../resources/colors/Colors';
-import {Assets} from '../../resources/images/Imagepath';
+import React, { useState } from "react";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { Colors } from "../../resources/colors/Colors";
+import { Assets } from "../../resources/images/Imagepath";
 import {
   window_height,
   window_width,
-} from '../../resources/dimensions/dimensions';
-import {Strings} from '../../resources/strings/Strings';
-import Slider from '@react-native-community/slider';
-import {useDispatch, useSelector} from 'react-redux';
-import {getBackgroundColor, getBtnColor, getBtnTxtColor, getNormalTxtColor, getPlaceHolderBackgroundColor} from '../../resources/lightdark';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+} from "../../resources/dimensions/dimensions";
+import { Strings } from "../../resources/strings/Strings";
+import Slider from "@react-native-community/slider";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getBackgroundColor,
+  getBtnColor,
+  getBtnTxtColor,
+  getNormalTxtColor,
+  getPlaceHolderBackgroundColor,
+} from "../../resources/lightdark";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
   notificationConfiguresType,
   themeType,
   updateNotificationConfigure,
-} from '../../redux/Slice';
-import {scheduleNotification} from './Reminder';
-import moment from 'moment';
+} from "../../redux/Slice";
+import { scheduleNotification } from "./Reminder";
+import moment from "moment";
 
-export const Reminder = ({navigation}: {navigation: any}) => {
+export const Reminder = ({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) => {
   const theme: string = useSelector((state: any) => state.theme.theme);
+  const { fromSetting } = route.params || {};
   const notificationConfigures: notificationConfiguresType = useSelector(
-    (state: any) => state.notificationconfigures,
+    (state: any) => state.notificationconfigures
   );
 
   const dispatch = useDispatch();
   const [selectedValue, setSelectedValue] = useState<number>(0);
-  const [isStartTimePickerVisible, setStartTimePickerVisibility] =
-    useState<boolean>(false);
-  const [isEndTimePickerVisible, setEndTimePickerVisibility] =
-    useState<boolean>(false);
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState<
+    boolean
+  >(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState<
+    boolean
+  >(false);
 
   const showStartTimePicker = () => {
     setStartTimePickerVisibility(true);
@@ -48,26 +63,26 @@ export const Reminder = ({navigation}: {navigation: any}) => {
     setEndTimePickerVisibility(false);
   };
 
-  const handleStartConfirm = date => {
-    console.warn('A date has been picked: ', date);
+  const handleStartConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
     dispatch(
       updateNotificationConfigure({
         startTime: date.getTime(),
         endTime: notificationConfigures.endTime,
         quantity: notificationConfigures.quantity,
-      }),
+      })
     );
     hideStartTimePicker();
   };
 
-  const handleEndConfirm = date => {
-    console.warn('A date has been picked: ', date);
+  const handleEndConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
     dispatch(
       updateNotificationConfigure({
         startTime: notificationConfigures.startTime,
         endTime: date.getTime(),
         quantity: notificationConfigures.quantity,
-      }),
+      })
     );
     hideEndTimePicker();
   };
@@ -96,63 +111,95 @@ export const Reminder = ({navigation}: {navigation: any}) => {
 
   return (
     <View
-      style={[Style.container, {backgroundColor: getBackgroundColor(theme)}]}>
+      style={[Style.container, { backgroundColor: getBackgroundColor(theme) }]}
+    >
       {startTimeModal()}
       {endTimeModal()}
       <Image style={Style.watch} source={Assets.watch} />
-      <Text style={[Style.identitytxt, {color: getNormalTxtColor(theme)}]}>
+      <Text style={[Style.identitytxt, { color: getNormalTxtColor(theme) }]}>
         {Strings.setreminder}
       </Text>
       <View style={Style.startendview}>
-        <View style={{alignItems: 'center'}}>
-          <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
+        <View style={{ alignItems: "center" }}>
+          <Text style={[Style.howmanytxt, { color: getNormalTxtColor(theme) }]}>
             {Strings.startat}
           </Text>
           <TouchableOpacity
             onPress={() => {
               showStartTimePicker();
             }}
-            style={[Style.timebox,{backgroundColor:getPlaceHolderBackgroundColor(theme)}]}>
-            <Text style={[Style.howmanytxt, {padding: 10,paddingHorizontal:20,color: getNormalTxtColor(theme)}]}>
-              {moment(notificationConfigures.startTime).format('hh:mm')}
+            style={[
+              Style.timebox,
+              { backgroundColor: getPlaceHolderBackgroundColor(theme) },
+            ]}
+          >
+            <Text
+              style={[
+                Style.howmanytxt,
+                {
+                  padding: 10,
+                  paddingHorizontal: 20,
+                  color: getNormalTxtColor(theme),
+                },
+              ]}
+            >
+              {moment(notificationConfigures.startTime).format("hh:mm")}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={[Style.starightline,{borderColor:getPlaceHolderBackgroundColor(theme)}]}></View>
+        <View
+          style={[
+            Style.starightline,
+            { borderColor: getPlaceHolderBackgroundColor(theme) },
+          ]}
+        ></View>
         <View>
-          <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
+          <Text style={[Style.howmanytxt, { color: getNormalTxtColor(theme) }]}>
             {Strings.endat}
           </Text>
           <TouchableOpacity
             onPress={() => {
               showEndTimePicker();
             }}
-            style={[Style.timebox,{backgroundColor:getPlaceHolderBackgroundColor(theme)}]}>
-            <Text style={[Style.howmanytxt, {padding: 10,paddingHorizontal:20,color: getNormalTxtColor(theme)}]}>
-              {moment(notificationConfigures.endTime).format('hh:mm')}
+            style={[
+              Style.timebox,
+              { backgroundColor: getPlaceHolderBackgroundColor(theme) },
+            ]}
+          >
+            <Text
+              style={[
+                Style.howmanytxt,
+                {
+                  padding: 10,
+                  paddingHorizontal: 20,
+                  color: getNormalTxtColor(theme),
+                },
+              ]}
+            >
+              {moment(notificationConfigures.endTime).format("hh:mm")}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={Style.howmanytxtview}>
-        <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
+        <Text style={[Style.howmanytxt, { color: getNormalTxtColor(theme) }]}>
           {Strings.howmany}
         </Text>
 
-        <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
-          {notificationConfigures.quantity + 'X'}
+        <Text style={[Style.howmanytxt, { color: getNormalTxtColor(theme) }]}>
+          {notificationConfigures.quantity + "X"}
         </Text>
       </View>
       <Slider
-        style={{width: 308, height: 40, alignSelf: 'center'}}
+        style={{ width: 308, height: 40, alignSelf: "center" }}
         value={Number(notificationConfigures.quantity)}
-        onValueChange={number => {
+        onValueChange={(number) => {
           dispatch(
             updateNotificationConfigure({
               startTime: notificationConfigures.startTime,
               endTime: notificationConfigures.endTime,
               quantity: Math.ceil(number),
-            }),
+            })
           );
           setSelectedValue(Math.ceil(number));
         }}
@@ -166,23 +213,24 @@ export const Reminder = ({navigation}: {navigation: any}) => {
       />
 
       <View style={Style.soundview}>
-        <Text style={[Style.howmanytxt, {color: getNormalTxtColor(theme)}]}>
+        <Text style={[Style.howmanytxt, { color: getNormalTxtColor(theme) }]}>
           {Strings.sound}
         </Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: "row" }}>
           <Image style={Style.circlearrow} source={Assets.circlearrow} />
           <Text
             style={[
               Style.howmanytxt,
-              {marginHorizontal: 15, color: getNormalTxtColor(theme)},
-            ]}>
+              { marginHorizontal: 15, color: getNormalTxtColor(theme) },
+            ]}
+          >
             {Strings.sound}
           </Text>
           <Image
             style={[
               Style.circlearrow,
               {
-                transform: [{scaleX: -1}],
+                transform: [{ scaleX: -1 }],
               },
             ]}
             source={Assets.circlearrow}
@@ -194,72 +242,77 @@ export const Reminder = ({navigation}: {navigation: any}) => {
         <TouchableOpacity
           onPress={() => {
             scheduleNotification(notificationConfigures);
-            navigation.reset({
-              index: 0,
-              routes: [
-                {
-                  name: "feeling",
-                },
-              ],
-            });
+            fromSetting
+              ? navigation.goBack()
+              : navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: "feeling",
+                    },
+                  ],
+                });
           }}
-          style={[Style.getstartbtn,{backgroundColor:getBtnColor(theme)}]}>
-          <Text style={[Style.getstarttxt,{color:getBtnTxtColor(theme)}]}>{Strings.continue}</Text>
+          style={[Style.getstartbtn, { backgroundColor: getBtnColor(theme) }]}
+        >
+          <Text style={[Style.getstarttxt, { color: getBtnTxtColor(theme) }]}>
+            {fromSetting ? Strings.save : Strings.continue}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 const Style = StyleSheet.create({
-  container: {flex: 1, backgroundColor: Colors.white},
+  container: { flex: 1, backgroundColor: Colors.white },
   identitytxt: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.black,
-    textAlign: 'center',
+    textAlign: "center",
     paddingVertical: 15,
   },
   watch: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     width: window_width / 2,
-    alignSelf: 'center',
+    alignSelf: "center",
     height: window_height / 4,
     marginTop: 67,
   },
-  btmview: {flex: 1, justifyContent: 'flex-end'},
+  btmview: { flex: 1, justifyContent: "flex-end" },
   getstartbtn: {
     width: window_width / 1.5,
     backgroundColor: Colors.getstartbtn,
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: 10,
     marginVertical: 20,
   },
   getstarttxt: {
     fontSize: 20,
     color: Colors.white,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginVertical: 10,
   },
   howmanytxtview: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: 290,
-    alignSelf: 'center',
-    justifyContent: 'space-between',
+    alignSelf: "center",
+    justifyContent: "space-between",
   },
   howmanytxt: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
     color: Colors.black,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   startendview: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 35,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     marginVertical: 20,
   },
-  starightline: {color: Colors.textinputborder, borderLeftWidth: 2},
+  starightline: { color: Colors.textinputborder, borderLeftWidth: 2 },
   timebox: {
     borderWidth: 1,
     borderColor: Colors.textinputborder,
@@ -267,13 +320,13 @@ const Style = StyleSheet.create({
     marginVertical: 10,
   },
   soundview: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 35,
   },
   circlearrow: {
     height: 30,
     width: 30,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
 });

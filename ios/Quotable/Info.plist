@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +51,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DancingScript-VariableFont_wght.ttf</string>
+		<string>Gurajada-Regular.ttf</string>
+		<string>IndieFlower-Regular.ttf</string>
+		<string>InstrumentSerif-Regular.ttf</string>
+		<string>Lemon-Regular.ttf</string>
+		<string>LongCang-Regular.ttf</string>
+		<string>Pacifico-Regular.ttf</string>
+		<string>RobotoMono-VariableFont_wght.ttf</string>
+		<string>Teko-VariableFont_wght.ttf</string>
+	</array>
 </dict>
 </plist>

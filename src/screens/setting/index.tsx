@@ -44,8 +44,6 @@ export const Setting = ({ navigation }: { navigation: any }) => {
                 let screenToNavigate = null;
 
                 switch(index) {
-                  case 0:
-                  case 1:
                   case 2:
                     screenToNavigate = 'reminder';
                     break;
@@ -60,7 +58,7 @@ export const Setting = ({ navigation }: { navigation: any }) => {
                 }
               
                 if (screenToNavigate) {
-                  navigation.navigate(screenToNavigate);
+                  navigation.navigate(screenToNavigate,{fromSetting:true});
                 }
                 
                 
@@ -70,8 +68,8 @@ export const Setting = ({ navigation }: { navigation: any }) => {
               {index == 1 && (
                 <Switch
                   style={style.switchstyle}
-                  trackColor={{ false: "#767577", true: "#81b0ff" }}
-                  thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                  trackColor={{ false: Colors.black, true: Colors.white }}
+                  thumbColor={Colors.splash_blue}
                   onValueChange={toggleSwitch}
                   value={isEnabled}
                 />
